@@ -25,5 +25,5 @@ class Cod4XasciinamePlugin(b3.plugin.Plugin):
         """
         client = event.client
         if not client.name or client.name == '':
-            self.verbose('Client in slot %s has a name cannot be parsed, changing name.')
+            self.verbose('Client in slot %s has a name that cannot be parsed, changing name.')
             self.console.write('b3_asciirename %s' % client.cid)
