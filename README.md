@@ -9,4 +9,4 @@ Installation:
   > cod4xasciiname: none
 
 3) Put the contents of the main_shared folder into your CoD4X root\main_shared
-4) Add the follwing line into the "_callbacksetup.gsx"_ file 
+4) Add the follwing line into the "_ _callbacksetup.gsx"_ file 
