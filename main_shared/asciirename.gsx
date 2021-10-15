@@ -21,3 +21,4 @@ inttostr(integer) {
 	setDvar("inttostr", integer);
 	return getDvar("inttostr");
 }
+
