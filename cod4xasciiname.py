@@ -1,9 +1,10 @@
-__version__ = '0.0.1'
+__version__ = '1.0.0'
 __author__ = 'Sh3llK0de'
 
 
 import b3
 import b3.plugin
+from re import search
 
 
 class Cod4XasciinamePlugin(b3.plugin.Plugin):
@@ -13,17 +14,16 @@ class Cod4XasciinamePlugin(b3.plugin.Plugin):
     def onStartup(self):
         """
         Plugin startup.
-        Hook into events.
+        Hook into auth events.
         """
-        self.registerEvent('EVT_CLIENT_AUTH', self.onauth)
+        self.registerEvent('EVT_CLIENT_CONNECT', self.onconnect)
 
-
-    def onauth(self, event):
+    def onconnect(self, event):
         """
-        Handle clients as the are recognized by B3.
-        Checks if the client's name is readable by B3 and changes it if not. 
+        Handle connecting clients.
+        Perform regex search for non-printable ASCII characters in name.
+        Sends server request to name change script if found.
         """
-        client = event.client
-        if not client.name or client.name == '':
-            self.verbose('Client in slot %s has a name that cannot be parsed, changing name.')
-            self.console.write('b3_asciirename %s' % client.cid)
+        if search('[\x80-\xff]', event.client.exactName) is not None:
+            self.console.write('b3_asciirename %s' % event.client.cid)
+            self.verbose('Non-ASCII name detected: %s > CID%s' % (event.client.name, event.client.cid))
